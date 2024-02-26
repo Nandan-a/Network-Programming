@@ -1,0 +1,104 @@
+﻿
+Router>enable
+Router#config terminal
+Enter configuration commands, one per line. End with CNTL/Z.
+ 
+Router(config)#interface gigabitEthernet 0/0
+
+Router(config-if)#ip add 192.168.10.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+Router(config-if)#
+Router(config-if)#end
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#
+Router#write
+Building configuration...
+[OK]
+Router#
+Router#
+Router#
+Router#
+
+===================================================
+
+Router>enable
+Router#config terminal
+Enter configuration commands, one per line. End with CNTL/Z.
+
+Router(config)#interface gigabitEthernet 0/0
+
+Router(config-if)#ip add 192.168.10.1 255.255.255.0
+Router(config-if)#no shutdown
+Router(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+
+Router(config-if)#end
+
+Router#
+Router#write
+Building configuration...
+[OK]
+Router#
+
+Router#config terminal
+Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)#interface gigabitEthernet 0/1
+Router(config-if)#ip add 10.0.0.1 255.255.255.252
+Router(config-if)#
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+
+Router(config-if)#
+Router(config-if)#end
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+Router#write
+Building configuration...
+[OK]
+
+Router#config terminal
+Enter configuration commands, one per line. End with CNTL/Z.
+
+Router(config)#interface gigabitEthernet 0/0
+
+Router(config-if)#ip nat inside
+Router(config-if)#end
+Router#
+Router#config terminal
+Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)#interface gigabitEthernet 0/0
+Router(config-if)#ip nat inside
+Router(config-if)#exit
+Router(config)#interface gigabitEthernet 0/1
+Router(config-if)#ip nat outside
+Router(config-if)#exit
+Router(config)#ip nat inside source static 192.168.10.10 10.0.0.1
+Router(config)#end
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#write
+Building configuration...
+[OK]
+
+Router#show ip nat translations 
+Pro Inside global Inside local Outside local Outside global
+--- 10.0.0.1 192.168.10.10 --- ---
+
+
+
+
+

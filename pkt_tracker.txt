@@ -1,0 +1,125 @@
+======================================================================DHCP
+
+DNS:
+IP CONFIGURATION(STATIC):
+192.168.1.9
+255.255.255.0
+192.168.1.2
+192.168.1.9
+
+DHCP:
+IP CONFIGURATION(STATIC):
+192.168.1.4
+255.255.255.0
+192.168.1.2    
+192.168.1.9
+
+WEB_SERVER:
+IP CONFIGURATION(STATIC):
+192.168.1.7
+255.255.255.0
+192.168.1.2
+192.168.1.9
+
+
+dhcp_SERVER:
+
+1.ADD IP POOL:
+POOL1:SERVERPOOLA
+G/W=192.168.1.2
+DNS=192.168.1.9
+
+START=192.168.1.10
+MASK=255.255.255.0
+MAX USER=50
+
+2.ADD IP POOL:
+POOL2:SERVERPOOL
+G/W=192.168.2.2
+DNS=192.168.1.9
+
+START=192.168.2.10
+MASK=255.255.255.0
+MAX USER=50
+
+
+ROUTER:
+RIGHT:
+IP=192.168.1.2
+255.255.255.0
+
+LEFT:
+192.168.2.2
+255.255.255.0
+CLI=
+$config terminal
+$interface gigaethernet 0/0
+$ip helper-address 192.168.1.4
+
+=========================================================================================================
+
+DYNAMIC-NAT
+G/W =192.168.0.100
+
+PC0=192.168.0.1
+255.255.255.0
+
+PC1=192.168.0.2
+255.255.255.0
+
+PC3=192.168.0.3
+255.255.255.0
+
+
+
+SERVER=
+200.0.0.1
+255.255.255.0
+200.0.0.100
+
+Define default route @ R1
+
+1.enble
+2.config terminal
+3.ip route 0.0.0.0   0.0.0.0    11.1.1.2
+
+ Define default route @ R2
+
+go to config-→ static
+
+n/w=50.0.0.0
+mask=255.0.0.0
+next hop=11.1.1.1
+
+========================================================================================================
+
+NAT
+
+R1:
+ip=192.168.10.1(0/0)
+subnet mask=255.255.255.0
+ip =10.0.0.1(0/1)
+subnet mask=255.255.255.252
+cli:
+$ interface gigaethernet 0/0
+$ip nat inside
+$ ip nat inside source static 192.168.10.10    10.0.0.1
+$ interface gigaethernet 0/1
+$ip nat outside
+
+R2:
+ip=10.0.0.2
+subnet mask=255.255.255.252
+
+pc1:
+ip=192.168.10.10
+subnet mask=255.255.255.0
+g/w=192.168.10.1
+
+pc2:
+ip=192.168.10.11
+subnet mask=255.255.255.0
+
+
+
+
